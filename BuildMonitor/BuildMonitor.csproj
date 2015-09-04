@@ -168,6 +168,7 @@
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
+    <Content Include="Views\Home\BuildsForProject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

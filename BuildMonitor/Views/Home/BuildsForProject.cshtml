@@ -1,0 +1,32 @@
+﻿<div data-bind="foreach:Builds">
+    <div class="buildInfoTile" data-bind="css: Status">
+        <h3 data-bind="text: Name"></h3>
+        <ul>
+            <li><span data-bind="text: Status"></span> (# builds / # succeeded)</li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var BuildOverviewViewModel = function() {
+        var self = this;
+
+        self.Builds = ko.observableArray([]);
+    };
+
+    var BuildModel = function(name, status) {
+        var self = this;
+
+        self.Name = ko.observable(name);
+        self.Status = ko.observable(status);
+    };
+
+    var buildOverviewViewModelInstance = new BuildOverviewViewModel();
+
+    ko.applyBindings(buildOverviewViewModelInstance);
+
+    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "succeeded"));
+    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "failed"));
+    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "partiallysucceeded"));
+    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "inprogress"));
+</script>
