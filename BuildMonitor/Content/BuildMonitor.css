@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+body .projectInfoTile,
 body .buildInfoTile {
   width: 250px;
   height: 90px;
@@ -13,11 +14,13 @@ body .buildInfoTile {
   float: left;
   cursor: pointer;
 }
+body .projectInfoTile h3,
 body .buildInfoTile h3 {
   font-size: 160.1%;
   font-weight: normal;
   margin: 4px 4px 0 4px;
 }
+body .projectInfoTile ul,
 body .buildInfoTile ul {
   margin: 0;
   padding: 0 4px 4px 4px;
@@ -27,7 +30,7 @@ body .succeeded {
   background: #339933 !important;
 }
 body .partiallysucceeded {
-  background: #E51400 !important;
+  background: #FF8A00 !important;
 }
 body .failed {
   background: #E51400 !important;
