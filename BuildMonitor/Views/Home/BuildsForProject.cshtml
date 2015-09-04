@@ -25,8 +25,17 @@
 
     ko.applyBindings(buildOverviewViewModelInstance);
 
-    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "succeeded"));
-    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "failed"));
-    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "partiallysucceeded"));
-    buildOverviewViewModelInstance.Builds.push(new BuildModel("Some Build", "inprogress"));
+    $(document).ready(function () { initializeSignalR();});
+
+    function initializeSignalR() {
+        var chat = $.connection.buildsHub;
+
+        chat.client.buildStatusChanged = function(build) {
+            window.buildOverviewViewModelInstance.Builds.push(new BuildModel(build.Name, build.Status));
+        };
+
+        $.connection.hub.start().done(function() {
+            console.log("hub started");
+        });
+    }
 </script>
