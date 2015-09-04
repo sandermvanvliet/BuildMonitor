@@ -1,0 +1,46 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+
+    .buildInfoTile {
+        width: 250px;
+        height: 90px;
+        background: lightgray;
+        overflow: hidden;
+        margin: 4px;
+        padding: 2px;
+        color: white;
+        float: left;
+        cursor: pointer;
+
+        h3 {
+            font-size: 160.1%;
+            font-weight: normal;
+            margin: 4px 4px 0 4px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0 4px 4px 4px;
+            list-style-type: none;
+        }
+    }
+
+    .succeeded {
+        background: #339933 !important;
+    }
+
+    .partiallysucceeded {
+        background: #E51400 !important;
+    }
+
+    .failed {
+        background: #E51400 !important;
+        color: white !important;
+    }
+
+    .inprogress {
+        background: #1BA1E2 !important;
+        color: white !important;
+    }
+}
