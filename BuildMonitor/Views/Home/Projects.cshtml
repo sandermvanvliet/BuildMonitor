@@ -1,0 +1,49 @@
+﻿<div data-bind="foreach:Projects" id="projects">
+    <div class="buildInfoTile" data-bind="css: Status">
+        <h3 data-bind="text: Name"></h3>
+        <ul>
+            <li data-bind="text: Status"></li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ProjectOverviewViewModel = function() {
+        var self = this;
+
+        self.Projects = ko.observableArray([]);
+    };
+
+    var ProjectModel = function(name, status) {
+        var self = this;
+
+        self.Name = ko.observable(name);
+        self.Status = ko.observable(status);
+    };
+
+    var projectOverviewViewModelInstance = new ProjectOverviewViewModel();
+
+    ko.applyBindings(projectOverviewViewModelInstance, document.getElementById("projects"));
+
+    $(document).ready(function() { initializeSignalR(); });
+
+    function initializeSignalR() {
+        var chat = $.connection.buildMonitorHub;
+
+        chat.client.projectStatusChanged = function(project) {
+            var existing = ko.utils.arrayFirst(
+                window.projectOverviewViewModelInstance.Projects(),
+                function(item) {
+                    return item.Name() === project.Name;
+                });
+
+            if (existing === null || existing === undefined) {
+                window.projectOverviewViewModelInstance.Projects.push(new ProjectModel(project.Name, project.Status));
+            } else {
+                existing.Status(project.Status);
+            }
+        };
+
+        $.connection.hub.start();
+    }
+</script>

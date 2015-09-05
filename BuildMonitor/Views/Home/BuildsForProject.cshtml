@@ -1,4 +1,4 @@
-﻿<div data-bind="foreach:Builds">
+﻿<div data-bind="foreach:Builds" id="builds">
     <div class="buildInfoTile" data-bind="css: Status">
         <h3 data-bind="text: Name"></h3>
         <ul>
@@ -23,12 +23,12 @@
 
     var buildOverviewViewModelInstance = new BuildOverviewViewModel();
 
-    ko.applyBindings(buildOverviewViewModelInstance);
+    ko.applyBindings(buildOverviewViewModelInstance, document.getElementById("builds"));
 
-    $(document).ready(function() { initializeSignalR(); });
+    $(document).ready(function () { initializeSignalRForBuilds(); });
 
-    function initializeSignalR() {
-        var chat = $.connection.buildsHub;
+    function initializeSignalRForBuilds() {
+        var chat = $.connection.buildMonitorHub;
 
         chat.client.buildStatusChanged = function(build) {
             var existing = ko.utils.arrayFirst(

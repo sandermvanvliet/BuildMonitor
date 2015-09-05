@@ -11,6 +11,11 @@ namespace BuildMonitor
                 JobIds.RefreshBuilds,
                 () => RefreshBuildsJob.Refresh(),
                 Cron.Minutely);
+
+            RecurringJob.AddOrUpdate(
+                JobIds.RefreshProjects,
+                () => RefreshProjectsJob.Refresh(),
+                Cron.Minutely);
         }
     }
 }

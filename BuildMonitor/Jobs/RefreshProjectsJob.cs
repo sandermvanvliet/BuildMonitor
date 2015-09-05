@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using BuildMonitor.Hubs;
 using BuildMonitor.Models;
 using Microsoft.AspNet.SignalR;
 
 namespace BuildMonitor.Jobs
 {
-    public class RefreshBuildsJob
+    public class RefreshProjectsJob
     {
         private static IHubContext<IBuildMonitorHub> hub;
 
@@ -16,9 +16,9 @@ namespace BuildMonitor.Jobs
                 hub = GlobalHost.ConnectionManager.GetHubContext<IBuildMonitorHub>("buildMonitorHub");
             }
 
-            hub.Clients.All.BuildStatusChanged(new Build
+            hub.Clients.All.ProjectStatusChanged(new Project
             {
-                Name = "Some Build",
+                Name = "Some Project",
                 Status = RandomStatus()
             });
         }
