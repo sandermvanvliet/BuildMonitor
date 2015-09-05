@@ -25,17 +25,25 @@
 
     ko.applyBindings(buildOverviewViewModelInstance);
 
-    $(document).ready(function () { initializeSignalR();});
+    $(document).ready(function() { initializeSignalR(); });
 
     function initializeSignalR() {
         var chat = $.connection.buildsHub;
 
         chat.client.buildStatusChanged = function(build) {
-            window.buildOverviewViewModelInstance.Builds.push(new BuildModel(build.Name, build.Status));
+            var existing = ko.utils.arrayFirst(
+                window.buildOverviewViewModelInstance.Builds(),
+                function(item) {
+                    return item.Name() === build.Name;
+                });
+
+            if (existing === null || existing === undefined) {
+                window.buildOverviewViewModelInstance.Builds.push(new BuildModel(build.Name, build.Status));
+            } else {
+                existing.Status(build.Status);
+            }
         };
 
-        $.connection.hub.start().done(function() {
-            console.log("hub started");
-        });
+        $.connection.hub.start();
     }
 </script>

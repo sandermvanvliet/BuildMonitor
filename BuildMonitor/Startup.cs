@@ -1,3 +1,5 @@
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Owin;
 
 namespace BuildMonitor
@@ -7,6 +9,11 @@ namespace BuildMonitor
         public void Configuration(IAppBuilder app)
         {
             app.MapSignalR();
+
+            GlobalConfiguration.Configuration.UseMemoryStorage();
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
         }
     }
 }
